@@ -42,52 +42,6 @@ def test_daily_mean(test_data, test_index, test_columns,
       pdt.assert_frame_equal(daily_mean(pd.DataFrame(data=test_data, index=test_index, columns=test_columns)),
                                         pd.DataFrame(data=expected_data, index=expected_index, columns=expected_columns))
 
-
-def test_daily_mean_zeros():
-    """Test that mean function works for an array of zeros."""
-    from catchment.models import daily_mean
-
-    test_input = pd.DataFrame(
-                     data=[[0.0, 0.0],
-                           [0.0, 0.0],
-                           [0.0, 0.0]],
-                     index=[pd.to_datetime('2000-01-01 01:00'),
-                            pd.to_datetime('2000-01-01 02:00'),
-                            pd.to_datetime('2000-01-01 03:00')],
-                     columns=['A', 'B']
-    )
-    test_result = pd.DataFrame(
-                     data=[[0.0, 0.0]],
-                     index=[datetime.date(2000, 1, 1)],
-                     columns=['A', 'B']
-    )
-
-    # Need to use Pandas testing functions to compare arrays
-    pdt.assert_frame_equal(daily_mean(test_input), test_result)
-
-
-def test_daily_mean_integers():
-    """Test that mean function works for an array of positive integers."""
-    from catchment.models import daily_mean
-
-    test_input = pd.DataFrame(
-                     data=[[1, 2],
-                           [3, 4],
-                           [5, 6]],
-                     index=[pd.to_datetime('2000-01-01 01:00'),
-                            pd.to_datetime('2000-01-01 02:00'),
-                            pd.to_datetime('2000-01-01 03:00')],
-                     columns=['A', 'B']
-    )
-    test_result = pd.DataFrame(
-                     data=[[3.0, 4.0]],
-                     index=[datetime.date(2000, 1, 1)],
-                     columns=['A', 'B']
-    )
-
-    # Need to use Pandas testing functions to compare arrays
-    pdt.assert_frame_equal(daily_mean(test_input), test_result)
-
 @pytest.mark.parametrize(
       "test_data, test_index, test_columns, expected_data, expected_index, expected_columns",
       [
@@ -123,52 +77,6 @@ def test_daily_max(test_data, test_index, test_columns,
       from catchment.models import daily_max
       pdt.assert_frame_equal(daily_max(pd.DataFrame(data=test_data, index=test_index, columns=test_columns)),
                                         pd.DataFrame(data=expected_data, index=expected_index, columns=expected_columns))
-
-
-def test_daily_max_zeros():
-    """Test that max function works for an array of zeros."""
-    from catchment.models import daily_max
-
-    test_input = pd.DataFrame(
-                     data=[[0.0, 0.0],
-                           [0.0, 0.0],
-                           [0.0, 0.0]],
-                     index=[pd.to_datetime('2000-01-01 01:00'),
-                            pd.to_datetime('2000-01-01 02:00'),
-                            pd.to_datetime('2000-01-01 03:00')],
-                     columns=['A', 'B']
-    )
-    test_result = pd.DataFrame(
-                     data=[[0.0, 0.0]],
-                     index=[datetime.date(2000, 1, 1)],
-                     columns=['A', 'B']
-    )
-
-    # Need to use Pandas testing functions to compare arrays
-    pdt.assert_frame_equal(daily_max(test_input), test_result)
-
-
-def test_daily_max_integers():
-    """Test that max function works for an array of positive integers."""
-    from catchment.models import daily_max
-
-    test_input = pd.DataFrame(
-                     data=[[1, 2],
-                           [3, 4],
-                           [5, 6]],
-                     index=[pd.to_datetime('2000-01-01 01:00'),
-                            pd.to_datetime('2000-01-01 02:00'),
-                            pd.to_datetime('2000-01-01 03:00')],
-                     columns=['A', 'B']
-    )
-    test_result = pd.DataFrame(
-                     data=[[5, 6]],
-                     index=[datetime.date(2000, 1, 1)],
-                     columns=['A', 'B']
-    )
-
-    # Need to use Pandas testing functions to compare arrays
-    pdt.assert_frame_equal(daily_max(test_input), test_result)
 
 
 @pytest.mark.parametrize(
@@ -207,50 +115,6 @@ def test_daily_min(test_data, test_index, test_columns,
       pdt.assert_frame_equal(daily_min(pd.DataFrame(data=test_data, index=test_index, columns=test_columns)),
                                         pd.DataFrame(data=expected_data, index=expected_index, columns=expected_columns))
 
-def test_daily_min_zeros():
-    """Test that min function works for an array of zeros."""
-    from catchment.models import daily_min
-
-    test_input = pd.DataFrame(
-                     data=[[0.0, 0.0],
-                           [0.0, 0.0],
-                           [0.0, 0.0]],
-                     index=[pd.to_datetime('2000-01-01 01:00'),
-                            pd.to_datetime('2000-01-01 02:00'),
-                            pd.to_datetime('2000-01-01 03:00')],
-                     columns=['A', 'B']
-    )
-    test_result = pd.DataFrame(
-                     data=[[0.0, 0.0]],
-                     index=[datetime.date(2000, 1, 1)],
-                     columns=['A', 'B']
-    )
-
-    # Need to use Pandas testing functions to compare arrays
-    pdt.assert_frame_equal(daily_min(test_input), test_result)
-
-
-def test_daily_min_integers():
-    """Test that min function works for an array of positive integers."""
-    from catchment.models import daily_min
-
-    test_input = pd.DataFrame(
-                     data=[[1, 2],
-                           [3, 4],
-                           [5, 6]],
-                     index=[pd.to_datetime('2000-01-01 01:00'),
-                            pd.to_datetime('2000-01-01 02:00'),
-                            pd.to_datetime('2000-01-01 03:00')],
-                     columns=['A', 'B']
-    )
-    test_result = pd.DataFrame(
-                     data=[[1, 2]],
-                     index=[datetime.date(2000, 1, 1)],
-                     columns=['A', 'B']
-    )
-
-    # Need to use Pandas testing functions to compare arrays
-    pdt.assert_frame_equal(daily_min(test_input), test_result)
 
 def test_daily_min_python_list():
       """ Test for AttributeError when passing a python List"""
@@ -258,4 +122,3 @@ def test_daily_min_python_list():
 
       with pytest.raises(AttributeError):
             error_expected = daily_min([[3, 4, 7], [-3, 0, 5]])
-            
