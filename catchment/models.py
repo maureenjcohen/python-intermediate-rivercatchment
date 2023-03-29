@@ -62,3 +62,12 @@ def data_normalise(data):
     col_max = np.array(np.max(data, axis=0))
     return data / col_max[np.newaxis, :]
 
+def daily_above_threshold(site_id, data, threshold):
+    """Determine whether or not each data value exceeds a given threshold for a given site.
+
+    :param site_id: The identifier for the site column
+    :param data: A 2D Pandas data frame with measurement data. Columns are measurement sites.
+    :param threshold: A threshold value to check against
+    :returns: A boolean list representing whether or not each data point for a given site exceeded the threshold
+    """
+    return list(map(lambda x: x > threshold, data[site_id]))
