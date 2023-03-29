@@ -9,6 +9,7 @@ time across all sites.
 
 import pandas as pd
 import numpy as np
+from functools import reduce
 
 def read_variable_from_csv(filename):
     """Reads a named variable from a CSV file, and returns a
@@ -71,3 +72,16 @@ def daily_above_threshold(site_id, data, threshold):
     :returns: A boolean list representing whether or not each data point for a given site exceeded the threshold
     """
     return list(map(lambda x: x > threshold, data[site_id]))
+
+def data_above_threshold(site_id, data, threshold):
+    """ """
+
+    def count_above_threshold(a, b):
+        print(a,b)
+        if b: 
+            return a + 1
+        else:
+            return a
+
+    above_threshold = map(lambda x: x > threshold, data[site_id])
+    return reduce(count_above_threshold, above_threshold, 0)
