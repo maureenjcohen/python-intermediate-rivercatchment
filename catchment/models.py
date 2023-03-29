@@ -85,3 +85,42 @@ def data_above_threshold(site_id, data, threshold):
 
     above_threshold = map(lambda x: x > threshold, data[site_id])
     return reduce(count_above_threshold, above_threshold, 0)
+
+class MeasurementSeries:
+    def __init__(self, series, name, units):
+        self.series = series
+        self.name = name
+        self.units = units
+        self.series.name = self.name
+    
+    def add_measurement(self, data):
+        self.series = pd.concat([self.series,data])
+        self.series.name = self.name
+    
+    def __str__(self):
+        if self.units:
+            return f"{self.name} ({self.units})"
+        else:
+            return self.name
+
+
+class Site:
+    def __init__(self,name):
+        self.name = name
+        self.measurements = {}
+    
+    def add_measurement(self, measurement_id, data, units=None):    
+        if measurement_id in self.measurements.keys():
+            self.measurements[measurement_id].add_measurement(data)
+        
+        else:
+            self.measurements[measurement_id] = MeasurementSeries(data, measurement_id, units)
+    
+    @property
+    def last_measurements(self):
+        return pd.concat(
+            [self.measurements[key].series[-1:] for key in self.measurements.keys()],
+            axis=1).sort_index()
+    
+    def __str__(self):
+        return self.name
